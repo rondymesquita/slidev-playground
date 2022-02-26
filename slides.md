@@ -21,7 +21,7 @@ drawings:
   persist: false
 ---
 
-<CodeBlock filename='test.ts'/>
+<CodeBlock filename='test.ts' theme='nord'/>
 
 ---
 

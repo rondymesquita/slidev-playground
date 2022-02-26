@@ -6,17 +6,19 @@ import * as shiki  from 'shiki'
 
 // import nord from 'shiki/themes/nord.json'
 
-shiki.setWasm('../public/onig.wasm')
+// shiki.setWasm('../public/onig.wasm')
 
 const props = defineProps({
   filename: {
+    type: String,
     default: "",
   },
-  syntax: {
-    default: "",
-  },
+  theme : {
+    type: String,
+    default: "nord"
+  }
 });
-const { filename, syntax } = props;
+const { filename, theme } = props;
 const code = ref("CODE NOT LOADED");
 const html = ref("CODE NOT LOADED");
 const shikiContainer = ref();
@@ -32,6 +34,12 @@ const getExtension = (filename) => {
   return arr[arr.length - 1]
 }
 
+// @ts-ignore
+// const loadTheme = import.meta.glob(`../node_modules/shiki/themes/*.json`)
+// const themeData = loadTheme()
+// console.log(themeData);
+
+
 fetch(path)
   .then((response) => response.text())
   .then((codeAsString) => {
@@ -41,7 +49,8 @@ fetch(path)
       const extension = getExtension(filename)
 
       shiki.getHighlighter({
-        langs: [extension]
+        theme: 'dracula',
+        langs: [extension],
       }).then(highlighter => {
         const htmlCode = highlighter.codeToHtml(codeAsString, { lang: extension })
         html.value = htmlCode

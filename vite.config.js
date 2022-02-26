@@ -13,6 +13,6 @@ export default defineConfig({
     }
   },
   esbuild: {
-    exclude: ["public/code/*.ts"]
+    exclude: ["public/code/*"]
   }
 })
