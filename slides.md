@@ -7,7 +7,7 @@ background: https://source.unsplash.com/collection/94734566/1920x1080
 # apply any windi css classes to the current slide
 class: "text-center"
 # https://sli.dev/custom/highlighters.html
-highlighter: shiki
+highlighter: prism
 # show line numbers in code blocks
 lineNumbers: false
 # some information about the slides, markdown enabled
@@ -22,6 +22,45 @@ drawings:
 ---
 
 <CodeBlock filename='test.ts' theme='nord'/>
+
+---
+
+# Code
+
+Use code snippets and get the highlighting directly![^1]
+
+```ts {all|2|1-6|9|all}
+interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  role: string;
+}
+
+function updateUser(id: number, update: User) {
+  const user = getUser(id);
+  const newUser = { ...user, ...update };
+  saveUser(id, newUser);
+}
+```
+
+<arrow v-click="3" x1="400" y1="420" x2="230" y2="330" color="#564" width="3" arrowSize="1" />
+
+[^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
+
+<style>
+.footnotes-sep {
+  @apply mt-20 opacity-10;
+}
+.footnotes {
+  @apply text-sm opacity-75;
+}
+.footnote-backref {
+  display: none;
+}
+</style>
+
+---
 
 ---
 
@@ -114,43 +153,6 @@ Hover on the bottom-left corner to see the navigation's controls panel, [learn m
 
 layout: image-right
 image: https://source.unsplash.com/collection/94734566/1920x1080
-
----
-
-# Code
-
-Use code snippets and get the highlighting directly![^1]
-
-```ts {all|2|1-6|9|all}
-interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  role: string;
-}
-
-function updateUser(id: number, update: User) {
-  const user = getUser(id);
-  const newUser = { ...user, ...update };
-  saveUser(id, newUser);
-}
-```
-
-<arrow v-click="3" x1="400" y1="420" x2="230" y2="330" color="#564" width="3" arrowSize="1" />
-
-[^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
-
-<style>
-.footnotes-sep {
-  @apply mt-20 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
 
 ---
 

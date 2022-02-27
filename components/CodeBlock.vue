@@ -1,33 +1,23 @@
 nes (42 sloc) 1.01 KB
 <script setup lang="ts">
 import { ref, nextTick } from "vue";
+import Prism from "prismjs";
 
-import * as shiki  from 'shiki'
-
-// import nord from 'shiki/themes/nord.json'
-
-// shiki.setWasm('../public/onig.wasm')
+import "prismjs/plugins/line-numbers/prism-line-numbers";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import "prismjs/components/prism-typescript";
 
 const props = defineProps({
   filename: {
-    type: String,
     default: "",
   },
-  theme : {
-    type: String,
-    default: "nord"
-  }
+  syntax: {
+    default: "",
+  },
 });
-const { filename, theme } = props;
+const { filename, syntax } = props;
 const code = ref("CODE NOT LOADED");
-const html = ref("CODE NOT LOADED");
-const shikiContainer = ref();
-
 const codeElement = ref();
-// @ts-ignore
-const path = import.meta.env.DEV
-  ? `../public/code/${filename}`
-  : `/code/${filename}.txt`;
 
 const getExtension = (filename) => {
   const arr = filename.split('.')
@@ -35,44 +25,28 @@ const getExtension = (filename) => {
 }
 
 // @ts-ignore
-// const loadTheme = import.meta.glob(`../node_modules/shiki/themes/*.json`)
-// const themeData = loadTheme()
-// console.log(themeData);
-
-
+const path = import.meta.env.DEV
+  ? `../public/code/${filename}`
+  : `/code/${filename}.txt`;
+Prism.manual = true;
 fetch(path)
   .then((response) => response.text())
   .then((codeAsString) => {
     code.value = codeAsString;
     nextTick(() => {
-
-      const extension = getExtension(filename)
-
-      shiki.getHighlighter({
-        theme: 'dracula',
-        langs: [extension],
-      }).then(highlighter => {
-        const htmlCode = highlighter.codeToHtml(codeAsString, { lang: extension })
-        html.value = htmlCode
-        nextTick(() => {
-          console.log(shikiContainer.value.firstChild)
-          const shikiContainerCode = shikiContainer.value.firstChild
-          shikiContainerCode.classList.add('slidev-code')
-          shikiContainerCode.classList.add('shiki-dark')
-        })
-      })
+      Prism.highlightElement(codeElement.value);
     });
   });
 </script>
 
 <template>
   <div>
-    <pre ref='shikiContainer' class='shiki-container' v-html='html'></pre>
+    <pre
+      ref="preElement"
+      class="line-numbers slidev-code language-ts"
+    ><code ref='codeElement'>{{code}}</code></pre>
   </div>
 </template>
 
 <style scoped>
-.shiki-container {
-  text-align: left;
-}
 </style>
