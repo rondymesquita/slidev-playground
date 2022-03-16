@@ -7,7 +7,7 @@ background: https://source.unsplash.com/collection/94734566/1920x1080
 # apply any windi css classes to the current slide
 class: "text-center"
 # https://sli.dev/custom/highlighters.html
-highlighter: prism
+highlighter: shiki
 # show line numbers in code blocks
 lineNumbers: true
 # some information about the slides, markdown enabled
@@ -21,7 +21,8 @@ drawings:
   persist: false
 ---
 
-<CodeBlock filename='test.java' theme='nord'/>
+# teste
+<CodeBlockShiki file='test.java'/>
 
 ---
 

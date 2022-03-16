@@ -1,4 +1,4 @@
-/* code {
+code {
   counter-reset: step;
   counter-increment: step 0;
 }
@@ -11,7 +11,7 @@ code .line::before {
   display: inline-block;
   text-align: right;
   color: rgba(115, 138, 148, 0.4);
-} */
+}
 
 pre[class*="language-"].line-numbers {
   position: relative;
@@ -46,4 +46,10 @@ pre[class*="language-"].line-numbers > code {
   display: block;
   padding-right: 0.8em;
   text-align: right;
+}
+
+.custom-shiki-code {
+	text-align: left !important;
+	display: flex;
+	flex-direction: column;
 }
